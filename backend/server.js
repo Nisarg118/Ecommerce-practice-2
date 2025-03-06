@@ -6,11 +6,20 @@ import cartRoutes from "./routes/cart.route.js";
 import couponRoutes from "./routes/coupon.route.js";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+connectDB();
+
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:5174",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -21,5 +30,4 @@ app.use("/api/coupons", couponRoutes);
 
 app.listen(PORT, () => {
   console.log("Connected to server");
-  connectDB();
 });

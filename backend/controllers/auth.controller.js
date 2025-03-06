@@ -147,6 +147,10 @@ export const refreshTokenCotroller = async (req, res) => {
   }
 };
 
-// export const getProfileController=async (req,res)=>{
-
-// }
+export const getProfileController = async (req, res) => {
+  try {
+    return res.json(req.user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
